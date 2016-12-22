@@ -10,7 +10,36 @@
 
 1. 使用“点标记法”，例如：`.state('contacts.list', {})`
 1. 使用parent属性，指定一个父状态的名称字符串，例如：`parent: 'contacts`;
-1.
+1. 使用parent属性，指定一个父状态对象，例如：`parent: contacts`（contacts 是一个状态对象）
+
+## 点标记法
+
+* 在$stateProvider中可以使用点语法来表示层次结构，下面，contacts.list是contacts的子状态。
+
+```javascript
+$stateProvider
+  .state('contacts', {})
+  .state('contacts.list', {});
+```
+
+* 使用parent属性，指定一个父状态的名称字符串
+
+```javascript
+$stateProvider
+  .state('contacts', {})
+  .state('list', {
+    parent: 'contacts'
+  });
+```
+
+* 基于对象的状态
+
+
+
+
+
+
+
 
 
 
