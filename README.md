@@ -1,14 +1,11 @@
 # angular-ui-router
 
-## angular project 目录对应示例
+## angular code 目录对应示例
 
 ## doc 目录对应文档
 > cd doc
-
 > cnpm install httpster -g 
-
 > httpster -p 
-
 * 运行目录网站
 
 [![cover](./images/face.png)]()

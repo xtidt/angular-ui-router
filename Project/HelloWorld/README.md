@@ -1,1 +1,0 @@
-The angular-ui-router "Hello World" app
