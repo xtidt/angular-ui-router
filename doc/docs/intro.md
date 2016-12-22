@@ -134,7 +134,7 @@ $stateProvider.state('contacts', {
     > string：一个服务的别名
     > function：函数的返回值将作为依赖注入项，如果函数是一个耗时的操作，那么控制器必须等待该函数执行完成（be resolved）才会被实例化。
 
-### 例子
+## 例子
 在controller实例化之前，resolve中的每一个对象都必须 be resolved，请注意每个 resolved object 是怎样作为参数注入到控制器中的。
 ```javascript
 $stateProvider.state('myState', {
@@ -194,7 +194,7 @@ $stateProvider.state('myState', {
       }
    })
 ```
-### 为 $state 对象提供自定义数据
+## 为 $state 对象提供自定义数据
 可以给 $state 对象提供自定义数据（建议使用data属性，以免冲突）
 
 ```javascript
@@ -217,3 +217,106 @@ $stateProvider
     } 
   })
 ```
+
+* 可以通过下面的方式来访问上面定义的数据：
+
+```javascript
+function Ctrl($state){
+    console.log($state.current.data.customData1) // 输出 5;
+    console.log($state.current.data.customData2) // 输出 "blue";
+}
+```
+
+## onEnter 和 onExit 回调函数
+onEnter和onExit回调函数是可选配置项，分别称为当一个状态变得活跃的和不活跃的时候触发。回调函数也可以访问所有解决依赖项。
+
+## State Change Events 状态改变事件
+
+所有这些事件都是在`$rootScope`作用域触发
+
+* $stateChangeStart - 当模板开始解析之前触发
+
+```javascript
+$rootScope.$on('$stateChangeStart', 
+function(event, toState, toParams, fromState, fromParams){ ... })
+```
+
+* 注意：使用event.preventDefault()可以阻止模板解析的发生
+
+```javascript
+$rootScope.$on('$stateChangeStart', 
+function(event, toState, toParams, fromState, fromParams){ 
+    event.preventDefault(); 
+    // transitionTo() promise will be rejected with 
+    // a 'transition prevented' error
+})
+```
+
+* $stateNotFound - v0.3.0 - 在 `transition` 时通过状态名查找状态，当状态无法找到时发生。该事件在 `scope` 链上广播，只允许一次处理错误的机会。`unfoundState` 将作为参数传入事件监听函数，下面例子中可以看到unfoundState的三个属性。使用 `event.preventDefault()` 来阻止模板解析，
+
+```javascript
+// somewhere, assume lazy.state has not been defined
+$state.go("lazy.state", {a:1, b:2}, {inherit:false});
+// somewhere else
+$scope.$on('$stateNotFound', 
+function(event, unfoundState, fromState, fromParams){ 
+    console.log(unfoundState.to); // "lazy.state"
+    console.log(unfoundState.toParams); // {a:1, b:2}
+    console.log(unfoundState.options); // {inherit:false} + default options
+})
+```
+
+* $stateChangeSuccess - 当模板解析完成后触发
+
+```javascript
+$rootScope.$on('$stateChangeSuccess', 
+function(event, toState, toParams, fromState, fromParams){ ... })
+```
+
+* $stateChangeError - 当模板解析过程中发生错误时触发
+
+```javascript
+$rootScope.$on('$stateChangeError', 
+function(event, toState, toParams, fromState, fromParams, error){ ... })
+```
+
+## View Load Events 视图加载事件
+
+### $viewContentLoading
+
+* 当视图开始加载，DOM渲染完成之前触发，该事件将在`$scope`链上广播此事件。
+
+```javascript
+$scope.$on('$viewContentLoading', 
+function(event, viewConfig){ 
+    // Access to all the view config properties.
+    // and one special property 'targetView'
+    // viewConfig.targetView 
+});
+```
+
+### $viewContentLoaded
+
+* 当视图加载完成，DOM渲染完成之后触发，视图所在的`$scope`发出该事件。
+```javascript
+$scope.$on('$viewContentLoading', 
+$scope.$on('$viewContentLoaded', 
+function(event){ ... });
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
