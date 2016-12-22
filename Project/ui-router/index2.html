@@ -1,0 +1,33 @@
+<html>
+
+<head>
+    <script src="../src/angular.js"></script>
+    <script src="../src/angular-ui-router.js"></script>
+    <style>
+        .active {
+            color: red;
+            font-weight: bold
+        }
+    </style>
+</head>
+
+<!-- index.html -->
+
+<body ng-controller="MainCtrl">
+    <a ui-sref="about" ui-sref-active="contacts">contacts</a>
+    <div ui-view></div>
+</body>
+
+<script>
+    var myApp = angular.module('app', ['ui.router']);
+
+    myApp.config(function($stateProvider) {
+        $stateProvider
+            .state('contacts', {
+                url: "/contacts",
+                template: '<h3>hello world!</h3>'
+            })
+    })
+</script>
+
+</html>

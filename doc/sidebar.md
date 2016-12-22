@@ -11,6 +11,7 @@
 1. [ex:Hello Galaxy](#docs/ex_3)
 1. [ui-router - 管理状态](#docs/manage)
 1. [ui-router - 状态嵌套和视图嵌套](#docs/states)
+1. [ui-router - 路由控制](#docs/url-router)
 
 
 
