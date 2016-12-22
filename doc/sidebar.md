@@ -9,6 +9,10 @@
 1. [ex:Hello World](#docs/ex_1)
 1. [ex:Hello Solar System](#docs/ex_2)
 1. [ex:Hello Galaxy](#docs/ex_3)
-1. [ui-router 管理状态](#docs/intro)
+1. [ui-router - 管理状态](#docs/manage)
+1. [ui-router - 状态嵌套和视图嵌套](#docs/states)
+
+
+
 
 

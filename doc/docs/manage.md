@@ -1,4 +1,4 @@
-# ui-router 系列文章索引
+# ui-router 系列文章
 
 ## ui-router - 管理状态
 
